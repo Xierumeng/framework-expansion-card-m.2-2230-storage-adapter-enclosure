@@ -11,3 +11,15 @@ Note: This enclosure protrudes from the Framework laptop.
 This enclosure is designed for this adapter: https://www.amazon.com/dp/B0DZ6RSWM8
 
 * Original link to adapter: https://www.amazon.de/dp/B0D9356MQN from: https://makerworld.com/en/models/1455123-framework-storage-expansion
+
+## Enclosure
+
+This enclosure is based on:
+
+* Framework expansion cards reference design.
+
+    * Original link: https://github.com/FrameworkComputer/ExpansionCards/tree/main/Mechanical/OpenSCAD
+
+* Framework storage expansion case created by voidlesity.
+
+    * Original link: https://makerworld.com/en/models/1455123-framework-storage-expansion
