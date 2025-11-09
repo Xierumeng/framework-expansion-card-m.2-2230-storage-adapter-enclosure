@@ -16,21 +16,12 @@ base = [30.0, 32.0, 6.8];
 // The default wall thickness
 side_wall = 1.5;
 
-// Size and location of the typical PCB
-pcb_gap = 0.5;
-pcb = [26.0, 30.0, 0.8];
-pcb_h = 3.05;
-
 // USB-C plug dimensions
 usb_c_r = 1.315;
 usb_c_w = 5.86 + usb_c_r * 2;
 usb_c_h = 2.2;
 
 rail_h = 4.25; // to top of rail
-
-// Boss locations matching the other Framework Expansion Cards
-boss_y = 10.5;
-boss_x = 3.7;
 
 // A simple 45 degree rib to improve printability
 module rib(thickness, height) {
@@ -69,33 +60,6 @@ module usb_c_cutout(open_top) {
             }
 }
 
-// Quarter section of a sphere, used as a clip
-module qsphere(radius = 1) {
-    difference() {
-        sphere(r=radius, $fn=32);
-        translate([-radius - 1, -radius - 1, -radius]) cube([radius * 2 + 2, radius * 2 + 2, radius]);
-        translate([0, -radius - 1, -radius - 1]) cube([radius, radius * 2 + 2, radius * 2 + 2]);
-    }
-}
-
-// The screw boss for the PCB, optionally with space for a threaded insert
-module boss(radius, use_insert, make_printable) {
-    difference() {
-        cylinder(r=radius, h=pcb_h, $fn=64);
-        if (use_insert) {
-            // Use threaded insert
-            translate([0, 0, side_wall]) cylinder(r=1.5, h=pcb_h, $fn=64);
-        } else {
-            translate([0, 0, side_wall]) cylinder(r=0.75, h=pcb_h, $fn=64);
-        }
-    }
-
-    // Add a rib for printability
-    if (make_printable) {
-        translate([0, radius - 0.1, 0]) rib(1, pcb_h);
-    }
-}
-
 // Incomplete implementation of a lid to use with this shell
 module expansion_card_lid() {
     gap = 0.25;
@@ -111,15 +75,10 @@ module expansion_card_lid() {
 // A basic, printable Expansion Card enclosure
 //  open_end - A boolean to make the end of the card that is exposed when inserted open
 //  make_printable - Adds ribs to improve printability
-//  pcb_mount - The method the PCB is held in with, "boss" for self-threading screws,
-//            "boss_insert" for fastener with a threaded insert,
-//            "clip" for a fastener-less clip, or
-//            "" for no PCB mounting structure
-module expansion_card_base(open_end, make_printable, pcb_mount = "boss") {
+module expansion_card_base(open_end, make_printable) {
     // Hollowing of the inside
     extra = 0.1;
     inner = [base[0] - side_wall * 2, base[1] - side_wall * 2, base[2] - side_wall + extra];
-    boss_radius = 2.3;
 
     difference() {
         cube(base);
@@ -157,28 +116,7 @@ module expansion_card_base(open_end, make_printable, pcb_mount = "boss") {
         // The fillet on that cover
         translate([base[0], base[1] - ledge_cut_d, 0]) rotate([0, 0, 180]) fillet(ledge_cut / 2, base[0]);
     }
-
-    if (pcb_mount == "boss" || pcb_mount == "boss_insert") {
-        // Add the screw bosses
-        translate([boss_x, boss_y, 0]) boss(boss_radius, pcb_mount == "boss_insert", make_printable);
-        translate([base[0] - boss_x, boss_y, 0]) boss(boss_radius, pcb_mount == "boss_insert", make_printable);
-    } else if (pcb_mount == "clip") {
-        clip_w = 1.5;
-        clip_gap = 0.5;
-        translate([boss_x - boss_radius, boss_y - boss_radius, 0]) {
-            cube([boss_radius * 2, boss_radius * 2, pcb_h]);
-            if (make_printable)
-                translate([boss_radius, boss_radius * 2, 0]) rib(boss_radius * 2, pcb_h);
-            translate([0, boss_radius - clip_w, pcb_h + pcb[2] + clip_gap]) rotate([0, 0, 180]) qsphere(clip_w);
-        }
-        translate([base[0] - boss_x - boss_radius, boss_y - boss_radius, 0]) {
-            cube([boss_radius * 2, boss_radius * 2, pcb_h]);
-            if (make_printable)
-                translate([boss_radius, boss_radius * 2, 0]) rib(boss_radius * 2, pcb_h);
-            translate([boss_radius * 2, boss_radius - clip_w, pcb_h + pcb[2] + clip_gap]) qsphere(clip_w);
-        }
-    }
 }
 
 // Rotate into a printable orientation
-rotate([-90, 0, 0]) translate([0, -base[1], 0]) expansion_card_base(open_end=true, make_printable=true, pcb_mount="");
+rotate([-90, 0, 0]) translate([0, -base[1], 0]) expansion_card_base(open_end=true, make_printable=true);
