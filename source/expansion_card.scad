@@ -84,8 +84,12 @@ module expansion_card_base(open_end, make_printable) {
         translate([base[0] / 2, base[1], usb_c_r + usb_c_h]) usb_c_cutout(usb_c_r, usb_c_w, usb_c_h, !open_end);
 
         // The sliding rails
-        translate([0, base[1], rail_h]) rail(base, side_wall, make_printable);
-        translate([base[0], base[1], rail_h]) mirror([1, 0, 0]) rail(base, side_wall, make_printable);
+        translate([0, base[1], rail_h])
+            rail(base, 0, make_printable);
+
+        translate([base[0], base[1], rail_h])
+            mirror([1, 0, 0])
+                rail(base, side_wall, make_printable);
 
         // Cut out the end of what is normally the aluminum cover
         ledge_cut = 0.6;
