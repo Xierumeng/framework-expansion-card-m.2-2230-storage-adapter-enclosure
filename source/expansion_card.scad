@@ -10,6 +10,7 @@
 // To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
 
 use <components/rail.scad>
+use <components/usb_c_cutout.scad>
 
 // The basic dimensions of an Expansion Card
 base = [30.0, 32.0, 6.8];
@@ -39,27 +40,6 @@ module fillet(radius, length) {
             }
 }
 
-// The cutout for the USB-C plug
-module usb_c_cutout(open_top) {
-    // The plug is "pushed in" by an extra 0.6 to account for 3d printing tolerances
-    translate([-usb_c_w / 2 + usb_c_r, 7 - 10 + 0.6, usb_c_r]) rotate([-90, 0, 0]) union() {
-                translate([0, usb_c_r, 0]) cylinder(r=usb_c_r, h=10, $fn=64);
-                translate([usb_c_w - usb_c_r * 2, usb_c_r, 0]) cylinder(r=usb_c_r, h=10, $fn=64);
-                cube([usb_c_w - usb_c_r * 2, usb_c_r * 2, 10]);
-
-                // Cutout for the pin side of the shell that expands out
-                translate([0, usb_c_r, 0]) cylinder(r2=usb_c_r, r1=3.84 / 2, h=10 - 7.7, $fn=64);
-                translate([usb_c_w - usb_c_r * 2, usb_c_r, 0]) cylinder(r2=usb_c_r, r1=3.84 / 2, h=10 - 7.7, $fn=64);
-                translate([usb_c_w / 2 - usb_c_r, usb_c_r, 0]) scale([1.8, 1, 1]) rotate([0, 0, 45]) cylinder(r2=usb_c_r * sqrt(2), r1=3.84 / 2 * sqrt(2), h=10 - 7.7, $fn=4);
-
-                // If the card drops in from the top rather than sliding in from the front,
-                // cut out a slot for the USB-C plug to drop into.
-                if (open_top) {
-                    translate([-usb_c_r, -10 + usb_c_r, 0]) cube([usb_c_w, 10, 10]);
-                }
-            }
-}
-
 // Incomplete implementation of a lid to use with this shell
 module expansion_card_lid() {
     gap = 0.25;
@@ -67,7 +47,7 @@ module expansion_card_lid() {
         translate([side_wall + gap, side_wall + gap, base[2] - side_wall]) cube([base[0] - side_wall * 2 - gap * 2, base[1] - side_wall * 2 - gap * 2, side_wall]);
         difference() {
             translate([base[0] / 2 - usb_c_w / 2 + gap, base[1] - side_wall - gap, usb_c_r + usb_c_h]) cube([usb_c_w - gap * 2, side_wall + gap, base[2] - (usb_c_r + usb_c_h)]);
-            translate([base[0] / 2, base[1], usb_c_r + usb_c_h]) usb_c_cutout(false);
+            translate([base[0] / 2, base[1], usb_c_r + usb_c_h]) usb_c_cutout(usb_c_r, usb_c_w, usb_c_h, false);
         }
     }
 }
@@ -101,7 +81,7 @@ module expansion_card_base(open_end, make_printable) {
         fillet(edge_r, base[0]);
 
         // The USB-C plug cutout
-        translate([base[0] / 2, base[1], usb_c_r + usb_c_h]) usb_c_cutout(!open_end);
+        translate([base[0] / 2, base[1], usb_c_r + usb_c_h]) usb_c_cutout(usb_c_r, usb_c_w, usb_c_h, !open_end);
 
         // The sliding rails
         translate([0, base[1], rail_h]) rail(base, side_wall, make_printable);
