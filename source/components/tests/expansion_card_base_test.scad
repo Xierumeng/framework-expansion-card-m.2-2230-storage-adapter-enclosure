@@ -13,6 +13,7 @@ usb_c_r = 1.315;
 usb_c_w = 5.86 + usb_c_r * 2;
 usb_c_h = 2.2;
 
-rail_h = 4.25; // to top of rail
+// To top of rail
+rail_h = 4.25;
 
-expansion_card_base(base, front_thickness, bottom_thickness, side_thickness, rail_h, usb_c_r, usb_c_w, usb_c_h, open_end=true, make_printable=true);
+expansion_card_base(base, front_thickness, bottom_thickness, side_thickness, usb_c_r, usb_c_w, usb_c_h, rail_h, open_end=true, make_printable=true);

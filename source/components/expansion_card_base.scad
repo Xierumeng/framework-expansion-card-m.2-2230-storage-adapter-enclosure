@@ -6,7 +6,7 @@ use <usb_c_cutout.scad>
 // A basic, printable Expansion Card enclosure
 //  open_end - A boolean to make the end of the card that is exposed when inserted open
 //  make_printable - Adds ribs to improve printability
-module expansion_card_base(base, front_thickness, bottom_thickness, side_thickness, rail_h, usb_c_r, usb_c_w, usb_c_h, open_end, make_printable) {
+module expansion_card_base(base, front_thickness, bottom_thickness, side_thickness, usb_c_r, usb_c_w, usb_c_h, rail_h, open_end, make_printable) {
     // Hollowing of the inside
     inner = [base[0] - side_thickness * 2, base[1] - front_thickness * 2, base[2] - bottom_thickness + anti_z_fighting_value];
 
