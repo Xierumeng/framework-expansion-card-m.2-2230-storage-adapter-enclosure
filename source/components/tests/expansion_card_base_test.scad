@@ -4,6 +4,7 @@ use <../expansion_card_base.scad>
 base = [30.0, 32.0, 6.8];
 
 // Wall thicknesses
+front_thickness = 1.5;
 bottom_thickness = 1.0;
 side_thickness = 1.5;
 
@@ -14,4 +15,4 @@ usb_c_h = 2.2;
 
 rail_h = 4.25; // to top of rail
 
-expansion_card_base(base, bottom_thickness, side_thickness, rail_h, usb_c_r, usb_c_w, usb_c_h, open_end=true, make_printable=true);
+expansion_card_base(base, front_thickness, bottom_thickness, side_thickness, rail_h, usb_c_r, usb_c_w, usb_c_h, open_end=true, make_printable=true);
