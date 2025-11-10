@@ -22,7 +22,7 @@ module expansion_card_base(base, front_thickness, rear_thickness, bottom_thickne
             notch = 1.0;
             notch_offset = 1.5;
             notch_l = 4.5 - front_thickness;
-            notch_h = 5.3 - bottom_thickness;
+            notch_h = base[2] - 1.5 - bottom_thickness;
 
             assert(side_thickness >= notch_offset, "There is a gap if the side thickness is smaller than the notch offset!")
 
