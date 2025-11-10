@@ -15,6 +15,7 @@ module expansion_card_base(base, front_thickness, bottom_thickness, side_thickne
 
         difference() {
             notch = 1.0;
+            notch_offset = 1.5;
             notch_l = 4.5 - front_thickness;
             notch_h = 5.3 - bottom_thickness;
 
@@ -23,20 +24,20 @@ module expansion_card_base(base, front_thickness, bottom_thickness, side_thickne
                 cube([inner[0], open_end ? inner[1] + front_thickness + anti_z_fighting_value : inner[1], inner[2] + anti_z_fighting_value]);
 
             // Extra wall thickness where the latch cutouts are
-            translate([side_thickness, inner[1] + front_thickness - notch_l, bottom_thickness + notch_h / 2])
+            translate([notch_offset, inner[1] + front_thickness - notch_l, bottom_thickness + notch_h / 2])
                 rotate([0, 0, -90])
                     rotate([0, 90, 0])
                         __rib(notch_h, notch);
 
-            translate([side_thickness, inner[1] + front_thickness - notch_l, bottom_thickness])
+            translate([notch_offset, inner[1] + front_thickness - notch_l, bottom_thickness])
                 cube([notch, notch_l, notch_h]);
 
-            translate([inner[0] + side_thickness, inner[1] + front_thickness - notch_l, bottom_thickness + notch_h / 2])
+            translate([base[0] - notch_offset, inner[1] + front_thickness - notch_l, bottom_thickness + notch_h / 2])
                 rotate([0, 0, 180])
                     rotate([0, 90, 0])
                         __rib(notch_h, notch);
 
-            translate([inner[0] + side_thickness - notch, inner[1] + front_thickness - notch_l, bottom_thickness])
+            translate([base[0] - notch_offset - notch, inner[1] + front_thickness - notch_l, bottom_thickness])
                 cube([notch, notch_l, notch_h]);
         }
 
