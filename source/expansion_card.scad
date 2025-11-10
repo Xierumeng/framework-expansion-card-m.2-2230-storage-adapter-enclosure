@@ -27,17 +27,5 @@ usb_c_h = 2.2;
 // To top of rail
 rail_h = 4.25;
 
-// Incomplete implementation of a lid to use with this shell
-module expansion_card_lid() {
-    gap = 0.25;
-    union() {
-        translate([side_thickness + gap, side_thickness + gap, base[2] - side_thickness]) cube([base[0] - side_thickness * 2 - gap * 2, base[1] - side_thickness * 2 - gap * 2, side_thickness]);
-        difference() {
-            translate([base[0] / 2 - usb_c_w / 2 + gap, base[1] - side_thickness - gap, usb_c_r + usb_c_h]) cube([usb_c_w - gap * 2, side_thickness + gap, base[2] - (usb_c_r + usb_c_h)]);
-            translate([base[0] / 2, base[1], usb_c_r + usb_c_h]) usb_c_cutout(usb_c_r, usb_c_w, usb_c_h, side_thickness, false);
-        }
-    }
-}
-
 // Rotate into a printable orientation
 rotate([-90, 0, 0]) translate([0, -base[1], 0]) expansion_card_base(base, front_thickness, bottom_thickness, side_thickness, usb_c_r, usb_c_w, usb_c_h, rail_h, open_end=true, make_printable=true);
