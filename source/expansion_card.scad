@@ -13,8 +13,9 @@ use <components/expansion_card_base.scad>
 
 // The basic dimensions of an Expansion Card
 base = [30.0, 32.0, 6.8];
-// The default wall thickness
-side_wall = 1.5;
+
+// Wall thicknesses
+side_thickness = 1.5;
 
 // USB-C plug dimensions
 usb_c_r = 1.315;
@@ -27,13 +28,13 @@ rail_h = 4.25; // to top of rail
 module expansion_card_lid() {
     gap = 0.25;
     union() {
-        translate([side_wall + gap, side_wall + gap, base[2] - side_wall]) cube([base[0] - side_wall * 2 - gap * 2, base[1] - side_wall * 2 - gap * 2, side_wall]);
+        translate([side_thickness + gap, side_thickness + gap, base[2] - side_thickness]) cube([base[0] - side_thickness * 2 - gap * 2, base[1] - side_thickness * 2 - gap * 2, side_thickness]);
         difference() {
-            translate([base[0] / 2 - usb_c_w / 2 + gap, base[1] - side_wall - gap, usb_c_r + usb_c_h]) cube([usb_c_w - gap * 2, side_wall + gap, base[2] - (usb_c_r + usb_c_h)]);
-            translate([base[0] / 2, base[1], usb_c_r + usb_c_h]) usb_c_cutout(usb_c_r, usb_c_w, usb_c_h, side_wall, false);
+            translate([base[0] / 2 - usb_c_w / 2 + gap, base[1] - side_thickness - gap, usb_c_r + usb_c_h]) cube([usb_c_w - gap * 2, side_thickness + gap, base[2] - (usb_c_r + usb_c_h)]);
+            translate([base[0] / 2, base[1], usb_c_r + usb_c_h]) usb_c_cutout(usb_c_r, usb_c_w, usb_c_h, side_thickness, false);
         }
     }
 }
 
 // Rotate into a printable orientation
-rotate([-90, 0, 0]) translate([0, -base[1], 0]) expansion_card_base(base, side_wall, rail_h, usb_c_r, usb_c_w, usb_c_h, open_end=true, make_printable=true);
+rotate([-90, 0, 0]) translate([0, -base[1], 0]) expansion_card_base(base, side_thickness, rail_h, usb_c_r, usb_c_w, usb_c_h, open_end=true, make_printable=true);
