@@ -14,16 +14,18 @@ module expansion_card_base(base, front_thickness, bottom_thickness, side_thickne
         cube(base);
 
         difference() {
-            notch = 1.0;
-            notch_offset = 1.5;
-            notch_l = 4.5 - front_thickness;
-            notch_h = 5.3 - bottom_thickness;
-
             // The main hollow
             translate([side_thickness, open_end ? -anti_z_fighting_value : front_thickness, bottom_thickness])
                 cube([inner[0], open_end ? inner[1] + front_thickness + anti_z_fighting_value : inner[1], inner[2] + anti_z_fighting_value]);
 
             // Extra wall thickness where the latch cutouts are
+            notch = 1.0;
+            notch_offset = 1.5;
+            notch_l = 4.5 - front_thickness;
+            notch_h = 5.3 - bottom_thickness;
+
+            assert(side_thickness >= notch_offset, "There is a gap if the side thickness is smaller than the notch offset!")
+
             translate([notch_offset, inner[1] + front_thickness - notch_l, bottom_thickness + notch_h / 2])
                 rotate([0, 0, -90])
                     rotate([0, 90, 0])
