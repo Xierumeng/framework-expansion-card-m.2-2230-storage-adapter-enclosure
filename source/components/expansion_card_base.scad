@@ -1,3 +1,5 @@
+include <anti_z_fighting.scad>
+
 use <rail.scad>
 use <usb_c_cutout.scad>
 
@@ -6,8 +8,7 @@ use <usb_c_cutout.scad>
 //  make_printable - Adds ribs to improve printability
 module expansion_card_base(base, side_wall, rail_h, usb_c_r, usb_c_w, usb_c_h, open_end, make_printable) {
     // Hollowing of the inside
-    extra = 0.1;
-    inner = [base[0] - side_wall * 2, base[1] - side_wall * 2, base[2] - side_wall + extra];
+    inner = [base[0] - side_wall * 2, base[1] - side_wall * 2, base[2] - side_wall + anti_z_fighting_value];
 
     difference() {
         cube(base);
@@ -18,8 +19,8 @@ module expansion_card_base(base, side_wall, rail_h, usb_c_r, usb_c_w, usb_c_h, o
             notch_h = 3.8;
 
             // The main hollow
-            translate([side_wall, open_end ? 0 : side_wall, side_wall])
-                cube([inner[0], open_end ? inner[1] + side_wall : inner[1], inner[2]]);
+            translate([side_wall, open_end ? -anti_z_fighting_value : side_wall, side_wall])
+                cube([inner[0], open_end ? inner[1] + side_wall + anti_z_fighting_value : inner[1], inner[2] + anti_z_fighting_value]);
 
             // Extra wall thickness where the latch cutouts are
             translate([side_wall, inner[1] + side_wall - notch_l, side_wall + notch_h / 2])
