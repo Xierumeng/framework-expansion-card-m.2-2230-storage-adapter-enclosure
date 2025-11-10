@@ -47,7 +47,7 @@ module expansion_card_lid() {
         translate([side_wall + gap, side_wall + gap, base[2] - side_wall]) cube([base[0] - side_wall * 2 - gap * 2, base[1] - side_wall * 2 - gap * 2, side_wall]);
         difference() {
             translate([base[0] / 2 - usb_c_w / 2 + gap, base[1] - side_wall - gap, usb_c_r + usb_c_h]) cube([usb_c_w - gap * 2, side_wall + gap, base[2] - (usb_c_r + usb_c_h)]);
-            translate([base[0] / 2, base[1], usb_c_r + usb_c_h]) usb_c_cutout(usb_c_r, usb_c_w, usb_c_h, false);
+            translate([base[0] / 2, base[1], usb_c_r + usb_c_h]) usb_c_cutout(usb_c_r, usb_c_w, usb_c_h, side_wall, false);
         }
     }
 }
@@ -81,7 +81,7 @@ module expansion_card_base(open_end, make_printable) {
         fillet(edge_r, base[0]);
 
         // The USB-C plug cutout
-        translate([base[0] / 2, base[1], usb_c_r + usb_c_h]) usb_c_cutout(usb_c_r, usb_c_w, usb_c_h, !open_end);
+        translate([base[0] / 2, base[1], usb_c_r + usb_c_h]) usb_c_cutout(usb_c_r, usb_c_w, usb_c_h, side_wall, !open_end);
 
         // The sliding rails
         translate([0, base[1], rail_h])
