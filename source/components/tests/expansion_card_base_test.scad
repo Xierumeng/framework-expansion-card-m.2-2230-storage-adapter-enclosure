@@ -1,17 +1,17 @@
 use <../../clearances.scad>
 use <../expansion_card_base.scad>
 
-length_extra = 31.5 + 1.0;  // Rear thickness
-bottom_extra = 1.71 + 1.0;  // Bottom thickness
+length_extra = 32.0 + 3.0; // Rear thickness
+bottom_extra = 1.71 + 1.0; // Bottom thickness
 
 // The basic dimensions of an Expansion Card
 base = [30.0, 32.0 + length_extra, 6.8 + bottom_extra];
 
 // Wall thicknesses
-front_thickness = 1.5;
-rear_thickness = 1.0;
+front_thickness = 1.0;
+rear_thickness = 3.0;
 bottom_thickness = 1.0;
-side_thickness = 1.5;
+side_thickness = 3.0;
 
 // Reference height from bottom
 reference_height = bottom_extra + 2.2;
