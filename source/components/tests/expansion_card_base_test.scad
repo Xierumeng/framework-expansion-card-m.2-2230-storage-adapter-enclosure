@@ -12,12 +12,15 @@ rear_thickness = 1.0;
 bottom_thickness = 1.0;
 side_thickness = 1.5;
 
+// Reference height from bottom
+reference_height = bottom_extra + 2.2;
+
 // USB-C plug dimensions
 usb_c_r = 1.315;
 usb_c_w = 5.86 + usb_c_r * 2;
-usb_c_h = bottom_extra + 2.2;
+usb_c_h = reference_height + 1.315 - usb_c_r;
 
 // To top of rail
-rail_h = usb_c_h + 2.05;
+rail_h = reference_height + 2.05;
 
 expansion_card_base(base, front_thickness, rear_thickness, bottom_thickness, side_thickness, usb_c_r, usb_c_w, usb_c_h, rail_h, open_end=false, make_printable=true);
