@@ -1,3 +1,4 @@
+use <../../clearances.scad>
 use <../expansion_card_base.scad>
 
 length_extra = 31.5 + 1.0;  // Rear thickness
@@ -22,5 +23,7 @@ usb_c_h = reference_height + 1.315 - usb_c_r;
 
 // To top of rail
 rail_h = reference_height + 2.05;
+
+check_clearances(base, front_thickness, rear_thickness, bottom_thickness, side_thickness, usb_c_r, usb_c_w, usb_c_h, rail_h);
 
 expansion_card_base(base, front_thickness, rear_thickness, bottom_thickness, side_thickness, usb_c_r, usb_c_w, usb_c_h, rail_h, open_end=false, make_printable=true);
