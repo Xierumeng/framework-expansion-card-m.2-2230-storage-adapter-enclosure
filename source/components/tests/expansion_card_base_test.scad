@@ -24,6 +24,9 @@ usb_c_h = reference_height + 1.315 - usb_c_r;
 // To top of rail
 rail_h = reference_height + 2.05;
 
+// Lid hole
+lid_hole_depth = 5.0;
+
 check_clearances(base, front_thickness, rear_thickness, bottom_thickness, side_thickness, usb_c_r, usb_c_w, usb_c_h, rail_h);
 
-expansion_card_base(base, front_thickness, rear_thickness, bottom_thickness, side_thickness, usb_c_r, usb_c_w, usb_c_h, rail_h, open_end=false, make_printable=true);
+expansion_card_base(base, front_thickness, rear_thickness, bottom_thickness, side_thickness, usb_c_r, usb_c_w, usb_c_h, rail_h, length_extra, lid_hole_depth, open_end=false, make_printable=true);

@@ -6,7 +6,9 @@ use <usb_c_cutout.scad>
 // A basic, printable Expansion Card enclosure
 //  open_end - A boolean to make the end of the card that is exposed when inserted open
 //  make_printable - Adds ribs to improve printability
-module expansion_card_base(base, front_thickness, rear_thickness, bottom_thickness, side_thickness, usb_c_r, usb_c_w, usb_c_h, rail_h, open_end, make_printable) {
+module expansion_card_base(base, front_thickness, rear_thickness, bottom_thickness, side_thickness, usb_c_r, usb_c_w, usb_c_h, rail_h, length_extra, lid_hole_depth, open_end, make_printable) {
+    difference() {
+        union() {
     // Hollowing of the inside
     inner = [base[0] - side_thickness * 2, base[1] - front_thickness - rear_thickness, base[2] - bottom_thickness + anti_z_fighting_value];
 
@@ -81,6 +83,24 @@ module expansion_card_base(base, front_thickness, rear_thickness, bottom_thickne
     // USB A support
     color("purple")
         cube([base[0], rear_thickness + 17.93 - 0.25, base[2] - (1.97 + 2.63 / 2 + 4.52 / 2 + 0.25)]);
+        }
+
+        // Lid holes
+        lid_side_hole = [side_thickness / 3, length_extra - rear_thickness - 1.0, lid_hole_depth + anti_z_fighting_value];
+
+        // Sides
+        translate([side_thickness / 3, rear_thickness, base[2] - lid_hole_depth])
+            cube(lid_side_hole);
+
+        translate([base[0] - side_thickness * 2 / 3, rear_thickness, base[2] - lid_hole_depth])
+            cube(lid_side_hole);
+
+        // Rear
+        lid_rear_hole = [base[0] - side_thickness * 2 / 3, rear_thickness / 3, lid_hole_depth + anti_z_fighting_value];
+
+        translate([side_thickness / 3, rear_thickness / 3, base[2] - lid_hole_depth])
+            cube(lid_rear_hole);
+    }
 }
 
 // A simple 45 degree rib to improve printability
