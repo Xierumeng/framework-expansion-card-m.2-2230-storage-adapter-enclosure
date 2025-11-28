@@ -51,11 +51,11 @@ module expansion_card_base(base, front_thickness, rear_thickness, bottom_thickne
 
                 // The sliding rails
                 translate([0, base[1], rail_h])
-                    rail(base, rear_thickness, make_printable);
+                    rail(base, length_extra, make_printable);
 
                 translate([base[0], base[1], rail_h])
                     mirror([1, 0, 0])
-                        rail(base, rear_thickness, make_printable);
+                        rail(base, length_extra, make_printable);
             }
 
             // TODO: Clean this up
