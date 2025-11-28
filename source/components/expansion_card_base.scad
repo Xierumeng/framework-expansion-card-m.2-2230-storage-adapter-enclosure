@@ -55,6 +55,32 @@ module expansion_card_base(base, front_thickness, rear_thickness, bottom_thickne
             mirror([1, 0, 0])
                 rail(base, rear_thickness, make_printable);
     }
+
+    // TODO: Clean this up
+    // Front holders
+    front_fill = [(base[0] - 9 - 1.0) / 2 - (side_thickness - anti_z_fighting_value), 11.53 - 6.8 - 0.25, base[2]];
+
+    color("blue")
+        translate([side_thickness - anti_z_fighting_value, base[1] - (11.53 - 6.8 - 0.25), 0])
+            cube(front_fill);
+
+    color("blue")
+        translate([base[0] - (base[0] - 9 - 1.0) / 2, base[1] - (11.53 - 6.8 - 0.25), 0])
+            cube(front_fill);
+
+    // Rear holders
+    rear_fill = [(base[0] - 13.5 - 1.0) / 2, rear_thickness + 17.93 - 0.25, base[2]];
+
+    color("red")
+        cube(rear_fill);
+
+    color("red")
+        translate([base[0] - (base[0] - 13.5 - 1.0) / 2, 0, 0])
+            cube(rear_fill);
+
+    // USB A support
+    color("purple")
+        cube([base[0], rear_thickness + 17.93 - 0.25, base[2] - (1.97 + 2.63 / 2 + 4.52 / 2 + 0.25)]);
 }
 
 // A simple 45 degree rib to improve printability
