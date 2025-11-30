@@ -28,7 +28,7 @@ side_thickness = 3.0;
 reference_height = bottom_extra + 2.2;
 
 // USB-C plug dimensions
-usb_c_r = 1.315;
+usb_c_r = 1.315 + 0.14;
 usb_c_w = 5.86 + usb_c_r * 2;
 usb_c_h = reference_height + 1.315 - usb_c_r;
 
