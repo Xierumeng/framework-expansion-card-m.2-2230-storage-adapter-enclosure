@@ -13,16 +13,16 @@ module check_clearances(base, front_thickness, rear_thickness, bottom_thickness,
     assert(usb_c_horizontal_clearance >= 0);
 
     board_width_measurement = 23.53;
-    board_length_measurement = 11.53 - 6.8 + 40.81 + 17.95;
+    board_length_measurement = 11.53 - 6.8 + 40.81 + 17.93;
     board_height_measurement = 1.97 + 2.63 / 2 + 1.05 / 2 + 3.7;
 
     width_clearance = (base[0] - side_thickness * 2) - board_width_measurement;
     echo(str("Width clearance: ", width_clearance));
     assert(width_clearance >= 0);
 
-    length_clearance = (base[1] - rear_thickness) - board_length_measurement;
-    echo(str("Length clearance: ", length_clearance));
-    assert(length_clearance >= 0);
+    length_clearance_rear_only = (base[1] - rear_thickness) - board_length_measurement;
+    echo(str("Length clearance (rear only): ", length_clearance_rear_only));
+    assert(length_clearance_rear_only >= 0);
 
     bottom_clearance = (base[2] - bottom_thickness) - board_height_measurement;
     echo(str("Bottom clearance: ", bottom_clearance));

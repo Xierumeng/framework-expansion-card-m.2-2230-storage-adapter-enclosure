@@ -12,7 +12,7 @@
 use <clearances.scad>
 use <components/expansion_card_base.scad>
 
-length_extra = 32.0 + 3.0; // Rear thickness
+length_extra = 31.72 + 3.0; // Rear thickness
 bottom_extra = 1.71 + 1.0; // Bottom thickness
 
 // The basic dimensions of an Expansion Card
